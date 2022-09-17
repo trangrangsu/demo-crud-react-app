@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import classNames from 'classnames/bind';
 import styles from './Add.module.scss';
@@ -12,6 +12,12 @@ function Add() {
     const [email, setEmail] = useState('');
     const [address, setAddress] = useState('');
 
+    const spanRef = useRef();
+
+    useEffect(() => {
+        spanRef.current.style.display = 'none';
+    }, []);
+
     const handleSubmit = () => {
         const student = {
             name,
@@ -20,7 +26,18 @@ function Add() {
             email,
             address,
         };
-        console.log(student);
+        const option = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(student),
+        };
+        fetch('http://localhost:8080/add', option)
+            .then((response) => response.json())
+            .then((data) => {
+                spanRef.current.style.display = 'inline';
+            });
     };
 
     return (
@@ -62,6 +79,9 @@ function Add() {
             <button className={cx('student-form-btn')} onClick={handleSubmit}>
                 Submit
             </button>
+            <span ref={spanRef} className={cx('student-form-message')}>
+                Add success
+            </span>
         </div>
     );
 }

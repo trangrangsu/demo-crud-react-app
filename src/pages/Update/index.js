@@ -13,6 +13,8 @@ function Update() {
     const [address, setAddress] = useState('');
 
     const id = useRef();
+    const updateSpanRef = useRef();
+    const deleteSpanRef = useRef();
 
     useEffect(() => {
         const student = JSON.parse(localStorage.getItem('student'));
@@ -22,22 +24,48 @@ function Update() {
         setPhone(student.phone);
         setEmail(student.email);
         setAddress(student.address);
+        updateSpanRef.current.style.display = 'none';
+        deleteSpanRef.current.style.display = 'none';
     }, []);
 
     const handleUpdate = () => {
         const student = {
+            id: id.current,
             name,
             username,
             phone,
             email,
             address,
         };
-        console.log(student);
+        const option = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(student),
+        };
+        fetch('http://localhost:8080/update/' + id.current, option)
+            .then((response) => response.json())
+            .then((data) => {
+                updateSpanRef.current.style.display = 'inline';
+                deleteSpanRef.current.style.display = 'none';
+            });
         localStorage.removeItem('student');
     };
 
     const handleDelete = () => {
-        console.log('remove');
+        const option = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+        fetch('http://localhost:8080/delete/' + id.current, option)
+            .then((response) => response.json())
+            .then((data) => {
+                updateSpanRef.current.style.display = 'none';
+                deleteSpanRef.current.style.display = 'inline';
+            });
     };
 
     return (
@@ -82,6 +110,14 @@ function Update() {
             <button className={cx('delete-form-btn')} onClick={handleDelete}>
                 Delete
             </button>
+            <div>
+                <span ref={updateSpanRef} className={cx('student-form-message')}>
+                    Update success
+                </span>
+                <span ref={deleteSpanRef} className={cx('student-form-message')}>
+                    Delete success
+                </span>
+            </div>
         </div>
     );
 }
