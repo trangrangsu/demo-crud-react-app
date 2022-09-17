@@ -1,0 +1,35 @@
+.wrapper {
+    width: 500px;
+    margin-left: 40%;
+}
+.student-form-div {
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+.student-form-input {
+    width: 300px;
+    height: 30px;
+    border-radius: 3px;
+    border: 1px solid #b8b4a9;
+    padding: 5px;
+    font-size: 15px;
+}
+.update-form-btn {
+    width: 80px;
+    height: 30px;
+    background-color: green;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+}
+.delete-form-btn {
+    width: 80px;
+    height: 30px;
+    background-color: red;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+    margin-left: 5px;
+}

@@ -1,0 +1,18 @@
+.student-form-p {
+    display: inline;
+}
+.student-form-div {
+    margin: 10px 0;
+}
+.student-form-btn {
+    background-color: yellow;
+    border-radius: 5px;
+    font-weight: bold;
+    width: 40px;
+    border: none;
+    padding: 2px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
