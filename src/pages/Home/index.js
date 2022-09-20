@@ -17,9 +17,15 @@ function Home() {
             .then((data) => setStudents(data));
     }, []);
 
+    const handleSearch = (data) => {
+        fetch('http://localhost:8080/users/' + data)
+            .then((response) => response.json())
+            .then((data) => setStudents(data));
+    };
+
     return (
         <div className={cx('wrapper')}>
-            <TopSite />
+            <TopSite onSearch={(data) => handleSearch(data)} />
             <div className={cx('container')}>
                 <div className={cx('left-site')}>
                     <LeftSite
